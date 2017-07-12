@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<%= javascript_include_tag "//www.google.com/jsapi", "chartkick" %>
+<%= bar_chart @data, stacked: true %> 
+ <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+<script src="//code.jquery.com/jquery-1.10.2.js"></script>
+<script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+<div data-role="main" class="ui-content">
+      <label for="points">Chips:</label>
+      <input id= "slider_amount" type="range" name="points" id="points" value="10" min="0" max="500">
+      <!-- <input type="submit" data-inline="true" value="Bet"> -->
+      <input id="bet_amount" type="text" value="10">
+</div>
+
+<script> 
+
+$("#slider_amount").change( function(){
+  $("#bet_amount").val($("#slider_amount").val());
+});
+$("#bet_amount").change( function(){
+  $("#slider_amount").val($("#bet_amount").val());
+  console.log($("#slider_amount").val($("#bet_amount").val());)
+});
+
+$("#bet_amount").keypress( function(event) {
+  if (event.keyCode == 13){
+    $("#slider_amount").val($("#bet_amount").val());
+
+    event.preventDefault();
+  }
+});
+
+
+</script>
+
+
+</script>
+
+</head>
+</html>
