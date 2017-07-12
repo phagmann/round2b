@@ -1,6 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+ <h1> Round2 Test </h1>
+ <p> Note: Whenever slider is moved, page may take a few seconds to update.
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>jQuery UI Slider - Range slider</title>
@@ -13,18 +15,51 @@
   function number_place(d) {
     return (d < 10) ? '0' + d.toString() : d.toString();
 }
+
+$.get( '/macheaders/1').success (function(time_range) {
   $( function() {
+
+
+    
+
     $( "#slider-range" ).slider({
+
       range: true,
       min: 0,
-      max: 500,
-      values: [ 0, 300 ],
-      slide: function( event, ui ) {
+      max: 1498436287 - 1498431718,
+      values: [ time_range.start_time, time_range.end_time ],
+      change: function( event, ui ) {
+
+        $.post('/macheaders/1', {
+
+        _method: "PUT",
+        mac: {
+          start_time: parseInt(ui.values[ 0 ]),
+          end_time: parseInt(ui.values[ 1 ]) 
+        }
+      }).success (function(macTime) { });
+
         $( "#amount" ).val(  parseInt(ui.values[ 0 ] / 60).toString() +":"+ number_place(parseInt(ui.values[ 0 ] % 60)).toString() + " - " + parseInt(ui.values[ 1 ] / 60).toString() +":"+ number_place(parseInt(ui.values[ 1 ] % 60)).toString() );
+        console.log($( "#amount" ).val());
+
+        setTimeout(function()
+    {
+        location.reload();
+
+    }, 200);
+        ;
       }
+
+        });
+
     });
 
+
      $( "#amount" ).val( parseInt( $( "#slider-range" ).slider( "values", 0 ) / 60) +":"+ number_place(parseInt( $( "#slider-range" ).slider( "values", 0 ) % 60)).toString() + " - " + parseInt( $( "#slider-range" ).slider( "values", 1 ) / 60).toString() +":"+ number_place(parseInt( $( "#slider-range" ).slider( "values", 1 ) % 60)).toString() );
+     console.log($( "#amount" ).val());
+
+
+
 
   } );
   </script>
